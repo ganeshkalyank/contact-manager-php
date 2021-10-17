@@ -4,10 +4,10 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-    $conn->query("CREATE TABLE IF NOT EXISTS `contacts` (`id` int(11) NOT NULL auto_increment, `name` varchar(255) NOT NULL, `mobile` varchar(13) NOT NULL, `email` varchar(255) NOT NULL, primary key (id))");
+    $conn->query("CREATE TABLE IF NOT EXISTS `contacts` (`id` int(11) NOT NULL auto_increment, `name` varchar(255) NOT NULL, `mobile` varchar(20) NOT NULL, `email` varchar(255) NOT NULL, primary key (id))");
     if (isset($_POST["new_contact"])) {
         $name = $_POST["name"];
-        $mobile = str_replace(" ","",$_POST["mobile"]);
+        $mobile = $_POST["mobile"];
         $email = $_POST["email"];
         $new_contact = "INSERT INTO contacts (name, mobile, email) VALUES ('$name', '$mobile', '$email')";
         $conn->query($new_contact);
@@ -20,7 +20,7 @@
     if(isset($_POST["edit_contact"])) {
         $edit_contact_id = $_POST["edit_contact_id"];
         $name = $_POST["name"];
-        $mobile = str_replace(" ","",$_POST["mobile"]);
+        $mobile = $_POST["mobile"];
         $email = $_POST["email"];
         $edit_contact = "UPDATE contacts SET name = '$name', mobile = '$mobile', email = '$email' WHERE id = $edit_contact_id";
         $conn->query($edit_contact);
